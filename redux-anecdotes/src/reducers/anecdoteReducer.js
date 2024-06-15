@@ -26,8 +26,8 @@ const reducer = (state = initialState, action) => {
       const newState = [...state]
       const targetAnecd = newState[targetIndex]
       targetAnecd.votes= targetAnecd.votes+1
-      newState[targetIndex] = targetAnecd
-      return newState
+      newState[targetIndex] = targetAnecd    
+      return newState.sort((a, b) => b.votes - a.votes )
     }
     case 'NEW_ANECDOTE':{
       return state.concat(asObject(action.payload))
