@@ -20,17 +20,21 @@ const asObject = (anecdote) => {
 const initialState = anecdotesAtStart.map(asObject)
 
 const reducer = (state = initialState, action) => {
-  console.log('state now: ', state)
-  console.log('action', action)
-  if(action.type === 'INCREMENT'){
-    const targetIndex = state.findIndex((anect)=> anect.id === action.payload)
-    const newState = [...state]
-    const targetAnecd = newState[targetIndex]
-    targetAnecd.votes= targetAnecd.votes+1
-    newState[targetIndex] = targetAnecd
-    return newState
+  switch(action.type){
+    case 'VOTE':{
+      const targetIndex = state.findIndex((anect)=> anect.id === action.payload)
+      const newState = [...state]
+      const targetAnecd = newState[targetIndex]
+      targetAnecd.votes= targetAnecd.votes+1
+      newState[targetIndex] = targetAnecd
+      return newState
+    }
+    case 'NEW_ANECDOTE':{
+      return state.concat(asObject(action.payload))
+    }
+    default: 
+    return state
   }
-  return state
 }
 
 export default reducer
