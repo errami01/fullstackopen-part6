@@ -19,7 +19,7 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
-const reducer = (state = initialState, action) => {
+const anecdoteReducer = (state = initialState, action) => {
   switch(action.type){
     case 'VOTE':{
       const targetIndex = state.findIndex((anect)=> anect.id === action.payload)
@@ -37,7 +37,6 @@ const reducer = (state = initialState, action) => {
   }
 }
 export const vote = (id) => {
-  console.log('vote', id)
   return{
     type: 'VOTE',
     payload: id
@@ -50,4 +49,4 @@ export const createAnecdote = (content)=>{
   }
 }
 
-export default reducer
+export default anecdoteReducer
