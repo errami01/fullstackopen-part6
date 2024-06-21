@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { vote } from '../reducers/anecdoteReducer'
+import { updateVotes } from '../reducers/anecdoteReducer'
 import { voteNotification, removeNotification } from '../reducers/notificationReducer'
 
 
@@ -9,9 +9,9 @@ const AnecdoteList = () => {
     const regex = new RegExp(filter,'i')
     const anecdotes = anecdoteState.filter((anecdote) => regex.test(anecdote.content))
     const dispatch = useDispatch()
-    const handleVote = (id, content )=>{
-        dispatch(vote(id))
-        dispatch(voteNotification(content))
+    const handleVote = (anecdote )=>{
+        dispatch(updateVotes(anecdote))
+        dispatch(voteNotification(anecdote.content))
         setTimeout(() => dispatch(removeNotification()), 5000)
     }
     return (
@@ -23,7 +23,7 @@ const AnecdoteList = () => {
           </div>
           <div>
             has {anecdote.votes}
-            <button onClick={() => handleVote(anecdote.id, anecdote.content)}>vote</button>
+            <button onClick={() => handleVote(anecdote)}>vote</button>
           </div>
         </div>
       )}
